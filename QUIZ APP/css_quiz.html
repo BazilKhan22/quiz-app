@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSS Quiz</title>
+</head>
+<body>
+  <h2>CSS Quiz</h2>
+  <div id="quiz"></div>
+  <button onclick="nextQuestion()">Next</button>
+
+  <script>
+    var questions = [
+      {question: "What does CSS stand for?", options: ["Cascading Style Sheets", "Colorful Style Sheets", "Computer Style Sheets"], answer: 0},
+      {question: "Which property is used to change the background color?", options: ["color", "background-color", "bgcolor"], answer: 1},
+      {question: "How do you add a border in CSS?", options: ["border: 1px solid black;", "border-width: 1px;", "border-color: black;"], answer: 0},
+      {question: "What is the default value of the position property?", options: ["static", "relative", "absolute"], answer: 0},
+      {question: "How do you select an element with id 'demo'?", options: ["#demo", ".demo", "demo"], answer: 0},
+      {question: "Which property is used to control the text size?", options: ["font-size", "text-size", "font-style"], answer: 0},
+      {question: "How do you make the text bold in CSS?", options: ["font-weight: bold;", "font-style: bold;", "text-weight: bold;"], answer: 0},
+      {question: "Which property is used to add shadow to a text?", options: ["text-shadow", "box-shadow", "shadow"], answer: 0},
+      {question: "How do you remove the underline from links?", options: ["text-decoration: none;", "text-decoration: no-underline;", "text-decoration: 0;"], answer: 0},
+      {question: "What is the correct syntax for a CSS comment?", options: ["/* comment */", "// comment", "<!-- comment -->"], answer: 0}
+    ];
+
+    var currentQuestion = 0;
+    var score = 0;
+
+    function showQuestion() {
+      if (currentQuestion < questions.length) {
+        var q = questions[currentQuestion];
+        document.getElementById('quiz').innerHTML = `
+          <p>${q.question}</p>
+          ${q.options.map((option, index) => `<button onclick="selectAnswer(${index})">${option}</button>`).join('')}
+        `;
+        startTimer();
+      } else {
+        showResults();
+      }
+    }
+
+    function selectAnswer(index) {
+      if (index === questions[currentQuestion].answer) {
+        score++;
+      }
+      nextQuestion();
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      showQuestion();
+    }
+
+    function showResults() {
+      var percentage = (score / questions.length) * 100;
+      document.getElementById('quiz').innerHTML = `<p>Your score: ${percentage}%</p>`;
+    }
+
+    function startTimer() {
+      setTimeout(nextQuestion, 1000);
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>

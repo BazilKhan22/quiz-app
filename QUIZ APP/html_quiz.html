@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML Quiz</title>
+</head>
+<body>
+  <h2>HTML Quiz</h2>
+  <div id="quiz"></div>
+  <button onclick="nextQuestion()">Next</button>
+
+  <script>
+    var questions = [
+      {question: "What does HTML stand for?", options: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"], answer: 0},
+      // Add 9 more questions here
+    ];
+
+    var currentQuestion = 0;
+    var score = 0;
+
+    function showQuestion() {
+      if (currentQuestion < questions.length) {
+        var q = questions[currentQuestion];
+        document.getElementById('quiz').innerHTML = `
+          <p>${q.question}</p>
+          ${q.options.map((option, index) => `<button onclick="selectAnswer(${index})">${option}</button>`).join('')}
+        `;
+        startTimer();
+      } else {
+        showResults();
+      }
+    }
+
+    function selectAnswer(index) {
+      if (index === questions[currentQuestion].answer) {
+        score++;
+      }
+      nextQuestion();
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      showQuestion();
+    }
+
+    function showResults() {
+      var percentage = (score / questions.length) * 100;
+      document.getElementById('quiz').innerHTML = `<p>Your score: ${percentage}%</p>`;
+    }
+
+    function startTimer() {
+      setTimeout(nextQuestion, 1000);
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>

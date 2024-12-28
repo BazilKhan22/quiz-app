@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript Quiz</title>
+</head>
+<body>
+  <h2>JavaScript Quiz</h2>
+  <div id="quiz"></div>
+  <button onclick="nextQuestion()">Next</button>
+
+  <script>
+    var questions = [
+      {question: "What does JS stand for?", options: ["JavaScript", "JavaSource", "JustScript"], answer: 0},
+      {question: "Which keyword is used to declare variables?", options: ["var", "let", "Both"], answer: 2},
+      {question: "Which method is used to print to the console?", options: ["console.log()", "print()", "console.output()"], answer: 0},
+      {question: "How do you create a function in JavaScript?", options: ["function myFunction()", "def myFunction()", "create myFunction()"], answer: 0},
+      {question: "How do you write an if statement in JavaScript?", options: ["if (x === 5)", "if x = 5 then", "if x === 5:"], answer: 0},
+      {question: "How do you add a comment in JavaScript?", options: ["// This is a comment", "<!-- This is a comment -->", "# This is a comment"], answer: 0},
+      {question: "Which method is used to add an element to an array?", options: ["push()", "add()", "append()"], answer: 0},
+      {question: "How do you round 4.6 to the nearest integer?", options: ["Math.round(4.6)", "round(4.6)", "Math.ceil(4.6)"], answer: 0},
+      {question: "Which event occurs when a user clicks on an element?", options: ["onclick", "onmouseclick", "onhover"], answer: 0},
+      {question: "How do you check if 'x' is not equal to 'y'?", options: ["x !== y", "x != y", "x !=== y"], answer: 0}
+    ];
+
+    var currentQuestion = 0;
+    var score = 0;
+
+    function showQuestion() {
+      if (currentQuestion < questions.length) {
+        var q = questions[currentQuestion];
+        document.getElementById('quiz').innerHTML = `
+          <p>${q.question}</p>
+          ${q.options.map((option, index) => `<button onclick="selectAnswer(${index})">${option}</button>`).join('')}
+        `;
+        startTimer();
+      } else {
+        showResults();
+      }
+    }
+
+    function selectAnswer(index) {
+      if (index === questions[currentQuestion].answer) {
+        score++;
+      }
+      nextQuestion();
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      showQuestion();
+    }
+
+    function showResults() {
+      var percentage = (score / questions.length) * 100;
+      document.getElementById('quiz').innerHTML = `<p>Your score: ${percentage}%</p>`;
+    }
+
+    function startTimer() {
+      setTimeout(nextQuestion, 1000);
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
